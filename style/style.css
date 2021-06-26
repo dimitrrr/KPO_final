@@ -7,6 +7,10 @@ html {
   font-size: 16px;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 main {
   padding-top: 40px;
   width: 80%;
@@ -62,6 +66,13 @@ hr {
 
 .new {
   margin-top: 20px;
+  box-shadow: 1px 1px 5px black;
+  transition: all .5s ease-out;
+  padding: 0 8px;
+}
+
+.new:hover {
+  transform: translate(0, -10px);
 }
 
 .image > img {
