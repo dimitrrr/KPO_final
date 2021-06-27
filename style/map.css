@@ -1,0 +1,23 @@
+.links {
+  width: 80%;
+  margin: 30px auto;
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.links a {
+  text-decoration: none;
+  color: #000;
+  transition: all 1s ease;
+}
+
+.links a:hover {
+  text-decoration: underline;
+  color: rgb(3, 16, 190);
+}
+
+.links div {
+  display: flex;
+  flex-direction: column;
+}

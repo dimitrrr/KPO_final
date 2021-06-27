@@ -25,3 +25,13 @@ for (var i = 0; i < tabButton.length; i++) {
 }
 
 window.addEventListener('load', defaultHide);
+
+var url_string = window.location.href;
+var url = new URL(url_string);
+var c = url.searchParams.get("a");
+if(c) {
+    document.querySelectorAll('.tab').forEach(el => el.classList.remove('active-tab'));
+    document.querySelectorAll('.content').forEach(el => el.classList.remove('show-tab'));
+    document.querySelector(`.tab.${c}`).classList.add('active-tab');
+    document.querySelector(`.content.${c}`).classList.add('show-tab');
+}

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Карта сайта</title>
     <link rel="icon" href="./assets/logo.png" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -14,8 +14,9 @@
     <link rel="stylesheet" href="./style/bootstrap.min.css" />
     <script defer src="./script/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="./style/style.css" />
-</head>
-<body>
+    <link rel="stylesheet" href="./style/map.css" />
+  </head>
+  <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
@@ -61,24 +62,62 @@
                 type="search"
                 placeholder="Введите запрос"
                 aria-label="Search"
+                id="text-to-find"
               />
-              <button class="btn btn-outline-light" type="submit">Поиск</button>
+              <button
+                class="btn btn-outline-light"
+                onclick="javascript: FindOnPage('text-to-find'); return false;"
+              >
+                Поиск
+              </button>
             </form>
           </div>
         </div>
       </nav>
     </header>
 
-    <footer>
-      <div class="main_about">
-        &copy;JuryNotary - представительство нотариусов Одесской области
-        <div class="od">
-          <a href="https://omr.gov.ua/">
-            <img src="./assets/background_main.png" alt="" />
-          </a>
-        </div>
+    <div class="links">
+      <div class="mainLinks">
+        <h2>
+          <a href="./index.html">Главная страница</a>
+        </h2>
+        <a href="https://notarius.kiev.ua/alimenty-po-zakonu/"
+          >Статья "Алименты по закону"</a
+        >
+        <a href="https://notarius.kiev.ua/dogovor-kupli-prodazhi/"
+          >Статья "Договор купли-продажи"</a
+        >
+        <a href="https://notarius.kiev.ua/notariusy-poluchili-pravo-apostil/"
+          >Статья "Нотариусы получили право на проставление апостиля</a
+        >
       </div>
-    </footer>
+      <div>
+        <h2>
+          <a href="./notarius.html">Нотариусы</a>
+        </h2>
+      </div>
+      <div>
+        <h2>
+          <a href="./service.html">Услуги</a>
+        </h2>
+      </div>
+      <div>
+        <h2>
+          <a href="./documents.html">Документы</a>
+        </h2>
+        <a href="./documents.html?a=tab-1">Доверенности</a>
+        <a href="./documents.html?a=tab-2">Договора</a>
+        <a href="./documents.html?a=tab-3">Завещания</a>
+        <a href="./documents.html?a=tab-4">Заявления</a>
+        <a href="./documents.html?a=tab-5">Свидетельства</a>
+        <a href="./documents.html?a=tab-6">Другие</a>
+      </div>
+      <div>
+        <h2>
+          <a href="./about.html">О проекте</a>
+        </h2>
+      </div>
+    </div>
 
     <script>
       window.replainSettings = { id: "db1c16ea-141d-4536-a6df-516560aab338" };
@@ -91,5 +130,51 @@
         x.parentNode.insertBefore(s, x);
       })("https://widget.replain.cc/dist/client.js");
     </script>
-</body>
+
+    <script type="text/javascript">
+      var lastResFind = ""; // последний удачный результат
+      var copy_page = ""; // копия страницы в ихсодном виде
+      function TrimStr(s) {
+        s = s.replace(/^\s+/g, "");
+        return s.replace(/\s+$/g, "");
+      }
+      function FindOnPage(inputId) {
+        //ищет текст на странице, в параметр передается ID поля для ввода
+        var obj = window.document.getElementById(inputId);
+        var textToFind;
+
+        if (obj) {
+          textToFind = TrimStr(obj.value); //обрезаем пробелы
+        } else {
+          alert("Введенная фраза не найдена");
+          return;
+        }
+        if (textToFind == "") {
+          alert("Вы ничего не ввели");
+          return;
+        }
+
+        if (document.body.innerHTML.indexOf(textToFind) == "-1")
+          alert("Ничего не найдено, проверьте правильность ввода!");
+
+        if (copy_page.length > 0) document.body.innerHTML = copy_page;
+        else copy_page = document.body.innerHTML;
+
+        document.body.innerHTML = document.body.innerHTML.replace(
+          eval("/name=" + lastResFind + "/gi"),
+          " "
+        ); //стираем предыдущие якори для скрола
+        document.body.innerHTML = document.body.innerHTML.replace(
+          eval("/" + textToFind + "/gi"),
+          "<a name=" +
+            textToFind +
+            " style='background:red'>" +
+            textToFind +
+            "</a>"
+        ); //Заменяем найденный текст ссылками с якорем;
+        lastResFind = textToFind; // сохраняем фразу для поиска, чтобы в дальнейшем по ней стереть все ссылки
+        window.location = "#" + textToFind; //перемещаем скрол к последнему найденному совпадению
+      }
+    </script>
+  </body>
 </html>
