@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="./style/bootstrap.min.css" />
     <script defer src="./script/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="./style/style.css" />
+    <link rel="stylesheet" href="./style/leaflet.css" />
+    <link rel="stylesheet" href="./style/notarius.css" />
+    <script src="./script/jquery-3.5.1.js"></script>
   </head>
   <body>
     <header>
@@ -69,7 +72,72 @@
       </nav>
     </header>
 
-    <div id="map"></div>
+    <div id="mapid"></div>
+    <button id="locate-position" class="uk-button uk-button-success">
+      <i class="uk-icon-map-marker">
+        <img src="./assets/man.png" alt="" />
+      </i>
+    </button>
+    <div class="main">
+      <table class="hash table-fixed-head">
+        <thead>
+          <tr>
+            <th data-type="string">Имя</th>
+            <th data-type="string">Населенный пункт</th>
+            <th data-type="string">Адрес</th>
+            <th data-type="string">Тип</th>
+            <th data-type="string">График работы</th>
+            <th data-type="string">Телефон</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Лемешко Елена Михайловна</td>
+            <td>Одесса</td>
+            <td>Гагаринское Плато, 5-Б</td>
+            <td>Частный</td>
+            <td>ПН-СБ: 09:00-18:00<br />ВС: выходной</td>
+            <td><a href="tel:+380679810222">+380679810222</a></td>
+          </tr>
+          <tr>
+            <td>4-я Одесская нотариальная контора</td>
+            <td>Одесса</td>
+            <td>Первая Сортировочная улица, 36Г</td>
+            <td>Государственный</td>
+            <td>ПН-СБ: 09:00-17:00<br />ВС: выходной</td>
+            <td><a href="tel:+380487051134">+380487051134</a></td>
+          </tr>
+          <tr>
+            <td>Ефимова Татьяна Ивановна</td>
+            <td>Измаил</td>
+            <td>Тульчиновская улица, 65</td>
+            <td>Частный</td>
+            <td>ПН-ВС: 09:00-17:00<br /></td>
+            <td><a href="tel:+380673289627">+380673289627</a></td>
+          </tr>
+          <tr>
+            <td>Ананьевская районная нотариальная контора</td>
+            <td>Ананьев</td>
+            <td>ул. Ленина, д. 42/1</td>
+            <td>Государственный</td>
+            <td>ПН-СБ: 09:00-16:00<br />ВС: выходной</td>
+            <td><a href="tel:+380486340519">+380486340519</a></td>
+          </tr>
+          <tr>
+            <td>Белгород-Днестровская городская нотариальная контора</td>
+            <td>Белгород-Днестровский</td>
+            <td>ул. Комсомольская, д. 12</td>
+            <td>Государственный</td>
+            <td>ПН-СБ: 09:00-17:00<br />ВС: выходной</td>
+            <td><a href="tel:+380484960658">+380484960658</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script src="./script/leaflet.js"></script>
+
+    <script src="./script/notarius.js"></script>
 
     <footer>
       <div class="main_about">
@@ -81,11 +149,6 @@
         </div>
       </div>
     </footer>
-
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTzDHSTHN9yIcKr_0wg6MWkBT0QTCr0Wk&callback=initMap&libraries=&v=weekly"
-      async
-    ></script>
     <script>
       window.replainSettings = { id: "db1c16ea-141d-4536-a6df-516560aab338" };
       (function (u) {

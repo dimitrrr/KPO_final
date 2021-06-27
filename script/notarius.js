@@ -1,53 +1,73 @@
-// Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
-// locate you.
-let map, infoWindow;
+var mymap = L.map("mapid").setView([46.5525, 30.7533], 13);
 
-function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: {
-            lat: -34.397,
-            lng: 150.644
-        },
-        zoom: 6,
+L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(mymap);
+
+var marker1 = L.marker([46.433864, 30.761965]);
+marker1.bindPopup('Лемешко Елена Михайловна').openPopup();
+marker1.addTo(mymap);
+
+var marker2 = L.marker([46.554185, 30.757540]);
+marker2.bindPopup('4-я Одесская нотариальная контора').openPopup();
+marker2.addTo(mymap);
+
+var marker3 = L.marker([45.343545, 28.837576]);
+marker3.bindPopup('Ефимова Татьяна Ивановна').openPopup();
+marker3.addTo(mymap);
+
+var marker4 = L.marker([47.714758, 29.991326]);
+marker4.bindPopup('Ананьевская районная нотариальная контора').openPopup();
+marker4.addTo(mymap);
+
+var marker5 = L.marker([46.185452, 30.341491]);
+marker5.bindPopup('Белгород-Днестровская городская нотариальная контора').openPopup();
+marker5.addTo(mymap);
+
+$('#locate-position').on('click', function () {
+    mymap.locate({
+        setView: true,
+        maxZoom: 15
     });
-    infoWindow = new google.maps.InfoWindow();
-    const locationButton = document.createElement("button");
-    locationButton.textContent = "Pan to Current Location";
-    locationButton.classList.add("custom-map-control-button");
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-    locationButton.addEventListener("click", () => {
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    };
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent("Location found.");
-                    infoWindow.open(map);
-                    map.setCenter(pos);
-                },
-                () => {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                }
-            );
-        } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-        }
-    });
+});
+
+function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+    L.marker(e.latlng).addTo(mymap);
+    L.circle(e.latlng, radius).addTo(mymap);
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(
-        browserHasGeolocation ?
-        "Error: The Geolocation service failed." :
-        "Error: Your browser doesn't support geolocation."
-    );
-    infoWindow.open(map);
+mymap.on('locationfound', onLocationFound);
+
+function onLocationError(e) {
+    alert(e.message);
+}
+mymap.on('locationerror', onLocationError);
+
+
+$("table").on("click", function (e) {
+    if (e.target.tagName != 'TH') return;
+    let th = e.target;
+    sortTable(this, th.cellIndex, th.dataset.type);
+});
+
+function sortTable(table, colNum, type) {
+    let tbody = table.querySelector('tbody');
+    let rowsArray = Array.from(tbody.rows);
+    let compare;
+    switch (type) {
+        case 'number':
+            compare = function (rowA, rowB) {
+                return rowA.cells[colNum].innerHTML - rowB.cells[colNum].innerHTML;
+            };
+            break;
+        case 'string':
+            compare = function (rowA, rowB) {
+                return rowA.cells[colNum].innerHTML > rowB.cells[colNum].innerHTML ? 1 : -1;
+            };
+            break;
+    }
+
+    rowsArray.sort(compare);
+    tbody.append(...rowsArray);
 }
