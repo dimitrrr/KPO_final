@@ -10,7 +10,8 @@ th {
   font-weight: bold;
 }
 
-td, th {
+td,
+th {
   padding: 10px;
   border: 1px solid #ccc;
   text-align: left;
@@ -36,14 +37,35 @@ td, th {
 }
 
 tr:nth-child(even) {
-    background-color: #DDD;
+  background-color: #ddd;
 }
 
-td:nth-child(2n+1) {
-    max-width: 500px;
+td:nth-child(2n + 1) {
+  max-width: 500px;
 }
 
 td:nth-child(2n) {
-    max-width: 250px;
-    text-align: center;
+  max-width: 250px;
+  text-align: center;
+}
+
+.find {
+  width: 200px;
+  margin: 20px auto;
+}
+
+.find form {
+  display: flex;
+  flex-direction: column;
+}
+
+.find form select,
+.find form input {
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 750px) {
+  table {
+    width: 100%;
+  }
 }

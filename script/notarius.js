@@ -307,7 +307,6 @@ function sortTable(table, colNum, type) {
 }
 
 $('.find input').on('input', function () {
-    debugger;
     $('td').each(function () {
         $(this).parent().show();
     });
