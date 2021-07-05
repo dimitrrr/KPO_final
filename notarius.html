@@ -619,26 +619,26 @@
     <script>
       window.replainSettings = { id: "db1c16ea-141d-4536-a6df-516560aab338" };
       (function (u) {
-        var s = document.createElement("script");
+        let s = document.createElement("script");
         s.type = "text/javascript";
         s.async = true;
         s.src = u;
-        var x = document.getElementsByTagName("script")[0];
+        let x = document.getElementsByTagName("script")[0];
         x.parentNode.insertBefore(s, x);
       })("https://widget.replain.cc/dist/client.js");
     </script>
 
     <script type="text/javascript">
-      var lastResFind = ""; // последний удачный результат
-      var copy_page = ""; // копия страницы в ихсодном виде
+      let lastResFind = ""; // последний удачный результат
+      let copy_page = ""; // копия страницы в ихсодном виде
       function TrimStr(s) {
         s = s.replace(/^\s+/g, "");
         return s.replace(/\s+$/g, "");
       }
       function FindOnPage(inputId) {
         //ищет текст на странице, в параметр передается ID поля для ввода
-        var obj = window.document.getElementById(inputId);
-        var textToFind;
+        let obj = window.document.getElementById(inputId);
+        let textToFind;
 
         if (obj) {
           textToFind = TrimStr(obj.value); //обрезаем пробелы

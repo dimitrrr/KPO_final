@@ -18,17 +18,17 @@ function defaultHide() {
     )
 }
 
-var tabButton = document.getElementsByClassName('tab');
+let tabButton = document.getElementsByClassName('tab');
 
-for (var i = 0; i < tabButton.length; i++) {
+for (let i = 0; i < tabButton.length; i++) {
     tabButton[i].addEventListener('click', showTab);
 }
 
 window.addEventListener('load', defaultHide);
 
-var url_string = window.location.href;
-var url = new URL(url_string);
-var c = url.searchParams.get("a");
+let url_string = window.location.href;
+let url = new URL(url_string);
+let c = url.searchParams.get("a");
 if(c) {
     document.querySelectorAll('.tab').forEach(el => el.classList.remove('active-tab'));
     document.querySelectorAll('.content').forEach(el => el.classList.remove('show-tab'));
